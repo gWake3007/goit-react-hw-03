@@ -1,5 +1,4 @@
 import css from "./SearchBox.module.css";
-import { Field } from "formik";
 
 const SearchBox = ({ value, onFilter }) => {
   return (
@@ -8,7 +7,7 @@ const SearchBox = ({ value, onFilter }) => {
         Find contacts by name
       </label>
       <br />
-      <Field
+      <input
         className={css.input}
         type="text"
         value={value}

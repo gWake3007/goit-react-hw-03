@@ -16,7 +16,7 @@ function App() {
       <h1>Phonebook</h1>
       <ContactForm />
       <SearchBox value={search} onFilter={setSearch} />
-      <ContactList contacts={visibleContact} />
+      <ContactList datalist={visibleContact} />
     </div>
   );
 }
