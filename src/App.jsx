@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ContactForm from "./components/ContactForm/ContactForm";
 import SearchBox from "./components/SearchBox/SearchBox";
 import ContactList from "./components/ContactList/ContactList";
@@ -14,21 +14,24 @@ const contactsState = [
 function App() {
   const [contacts, setContacts] = useState(contactsState);
   const [search, setSearch] = useState("");
-  // const visibleContact = contacts.filter((contact) =>
-  //   contact.name.toLowerCase().includes(search.toLowerCase())
-  // );
+  const visibleContact = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   const submitForm = (newUser) => {
-    setContacts((prevContacts) => {
-      return [...prevContacts, newUser];
-    });
+    setContacts([...contacts, newUser]);
   };
+
+  const deleteContact = (contactId) => {
+    setContacts([...contacts.filter((contact) => contact.id !== contactId)]);
+  };
+
   return (
     <div>
       <h1>Phonebook</h1>
       <ContactForm onAdd={submitForm} />
       <SearchBox value={search} onFilter={setSearch} />
-      <ContactList datalist={contacts} />
+      <ContactList datalist={visibleContact} onDelete={deleteContact} />
     </div>
   );
 }

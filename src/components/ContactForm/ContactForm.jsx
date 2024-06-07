@@ -6,21 +6,54 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const ContactForm = ({ onAdd }) => {
   const initialValues = {
-    username: "",
-    userphone: "",
+    name: "",
+    number: "",
   };
 
-  const validationSchema = Yup.object({
-    username: Yup.string().required("Required"),
-    userphone: Yup.string().required("Required"),
+  const nameValidation = (value) => {
+    const nameRegex = /^[a-zA-Z]+$/;
+    const parts = value.split(" ");
+    if (parts.length !== 2) {
+      return "Please enter both first and last name";
+    }
+    if (!nameRegex.test(parts[0]) || !nameRegex.test(parts[1])) {
+      return "Both first and last name should only contain letters";
+    }
+    if (parts[0].length < 3 || parts[1].length < 3) {
+      return "Both first and last name should be at least 3 characters long";
+    }
+    if (parts[0].length > 50 || parts[1].length > 50) {
+      return "Both first and last name should be no longer than 50 characters";
+    }
+    if (
+      parts[0][0] !== parts[0][0].toUpperCase() ||
+      parts[1][0] !== parts[1][0].toUpperCase()
+    ) {
+      return "Both first and last name should start with a capital letter";
+    }
+    return true;
+  };
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .test(
+        "is-full-name",
+        "User name is not valid. Format should be FirstName LastName",
+        (value) => nameValidation(value) === true
+      )
+      .required("Required"),
+    number: Yup.string()
+      .matches(
+        /^\d{3}-\d{2}-\d{2}$/,
+        "Phone number is not valid. Format should be 555-55-55"
+      )
+      .required("Required"),
   });
   const handleSubmit = (values, actions) => {
     onAdd({
       id: nanoid(),
-      username: values.username,
-      userphone: values.userphone,
+      ...values,
     });
-    console.log(values);
     actions.resetForm();
   };
   const nameId = useId();
@@ -37,34 +70,16 @@ const ContactForm = ({ onAdd }) => {
             Name
           </label>
           <br />
-          <Field
-            className={css.input}
-            id={nameId}
-            type="text"
-            name="username"
-          />
-          <ErrorMessage
-            className={css.error}
-            component="span"
-            name="username"
-          />
+          <Field className={css.input} id={nameId} type="text" name="name" />
+          <ErrorMessage className={css.error} component="span" name="name" />
         </div>
         <div className={css.container}>
           <label className={css.label} htmlFor={phoneId}>
             Number
           </label>
           <br />
-          <Field
-            className={css.input}
-            id={phoneId}
-            type="tel"
-            name="userphone"
-          />
-          <ErrorMessage
-            className={css.error}
-            component="span"
-            name="userphone"
-          />
+          <Field className={css.input} id={phoneId} type="tel" name="number" />
+          <ErrorMessage className={css.error} component="span" name="number" />
         </div>
         <button className={css.btn} type="submit">
           Add contact
