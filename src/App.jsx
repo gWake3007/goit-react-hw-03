@@ -12,7 +12,14 @@ const contactsState = [
 ];
 
 function App() {
-  const [contacts, setContacts] = useState(contactsState);
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(localStorage.getItem("contacts")) || contactsState
+  );
+
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
+
   const [search, setSearch] = useState("");
   const visibleContact = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(search.toLowerCase())

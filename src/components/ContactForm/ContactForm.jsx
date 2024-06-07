@@ -69,7 +69,6 @@ const ContactForm = ({ onAdd }) => {
           <label className={css.label} htmlFor={nameId}>
             Name
           </label>
-          <br />
           <Field className={css.input} id={nameId} type="text" name="name" />
           <ErrorMessage className={css.error} component="span" name="name" />
         </div>
@@ -77,13 +76,14 @@ const ContactForm = ({ onAdd }) => {
           <label className={css.label} htmlFor={phoneId}>
             Number
           </label>
-          <br />
           <Field className={css.input} id={phoneId} type="tel" name="number" />
           <ErrorMessage className={css.error} component="span" name="number" />
         </div>
-        <button className={css.btn} type="submit">
-          Add contact
-        </button>
+        <div className={css.containerBtn}>
+          <button className={css.btn} type="submit">
+            Add contact
+          </button>
+        </div>
       </Form>
     </Formik>
   );

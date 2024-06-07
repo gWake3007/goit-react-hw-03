@@ -4,3 +4,31 @@
   max-width: 300px;
   padding: 10px;
 }
+
+.label {
+  line-height: 1;
+  color: grey;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.containerBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  background-color: grey;
+}
