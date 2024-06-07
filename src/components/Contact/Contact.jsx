@@ -4,7 +4,7 @@ import { FaUser } from "react-icons/fa";
 
 const Contact = ({ data: { name, number } }) => {
   return (
-    <>
+    <li className={css.item}>
       <div className={css.container}>
         <div className={css.stroke}>
           <FaUser />
@@ -20,7 +20,7 @@ const Contact = ({ data: { name, number } }) => {
           Delete
         </button>
       </div>
-    </>
+    </li>
   );
 };
 

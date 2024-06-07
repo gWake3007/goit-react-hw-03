@@ -5,9 +5,7 @@ const ContactList = ({ datalist }) => {
   return (
     <ul className={css.list}>
       {datalist.map((data) => (
-        <li className={css.item} key={data.id}>
-          <Contact data={data} />
-        </li>
+        <Contact data={data} key={data.id} />
       ))}
     </ul>
   );

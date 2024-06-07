@@ -7,12 +7,3 @@
   gap: 15px;
   flex-wrap: wrap;
 }
-
-.item {
-  border: 1px solid white;
-  border-radius: 7px;
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  gap: 80px;
-}

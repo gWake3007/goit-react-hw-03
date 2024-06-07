@@ -1,0 +1,6 @@
+.form {
+  border: 1px solid black;
+  border-radius: 7px;
+  max-width: 300px;
+  padding: 10px;
+}

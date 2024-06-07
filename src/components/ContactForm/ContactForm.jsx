@@ -1,12 +1,36 @@
 import css from "./ContactForm.module.css";
+import * as Yup from "yup";
+import { nanoid } from "nanoid";
 import { useId } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
-const ContactForm = () => {
+const ContactForm = ({ onAdd }) => {
+  const initialValues = {
+    username: "",
+    userphone: "",
+  };
+
+  const validationSchema = Yup.object({
+    username: Yup.string().required("Required"),
+    userphone: Yup.string().required("Required"),
+  });
+  const handleSubmit = (values, actions) => {
+    onAdd({
+      id: nanoid(),
+      username: values.username,
+      userphone: values.userphone,
+    });
+    console.log(values);
+    actions.resetForm();
+  };
   const nameId = useId();
   const phoneId = useId();
   return (
-    <Formik>
+    <Formik
+      onSubmit={handleSubmit}
+      validationSchema={validationSchema}
+      initialValues={initialValues}
+    >
       <Form className={css.form}>
         <div className={css.container}>
           <label className={css.label} htmlFor={nameId}>
@@ -33,7 +57,7 @@ const ContactForm = () => {
           <Field
             className={css.input}
             id={phoneId}
-            type="text"
+            type="tel"
             name="userphone"
           />
           <ErrorMessage

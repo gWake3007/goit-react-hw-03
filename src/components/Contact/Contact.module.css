@@ -4,6 +4,15 @@
   gap: 8px;
 }
 
+.item {
+  border: 1px solid white;
+  border-radius: 7px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+}
+
 .stroke {
   display: flex;
   flex-direction: row;
